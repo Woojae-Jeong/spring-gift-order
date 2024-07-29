@@ -6,6 +6,7 @@ import gift.Service.MemberService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +28,7 @@ public class MemberController {
     @ApiResponse(responseCode = "400", description = "잘못된 요청입니다. 입력값을 확인해주세요")
     @ApiResponse(responseCode = "500", description = "서버 내부 에러 발생")
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody RequestMemberDTO requestMemberDTO){
+    public ResponseEntity<String> registerUser(@Valid @RequestBody RequestMemberDTO requestMemberDTO){
         Member member = memberService.signUpUser(requestMemberDTO);
         return ResponseEntity.created(URI.create("/members" + member.getId())).body("회원가입이 정상적으로 되었습니다");
     }
@@ -37,7 +38,7 @@ public class MemberController {
     @ApiResponse(responseCode = "400", description = "잘못된 요청입니다. 입력값을 확인해주세요")
     @ApiResponse(responseCode = "500", description = "서버 내부 에러 발생")
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody RequestMemberDTO member) {
+    public ResponseEntity<String> loginUser(@Valid @RequestBody RequestMemberDTO member) {
         return ResponseEntity.ok(memberService.loginUser(member));
     }
 }
