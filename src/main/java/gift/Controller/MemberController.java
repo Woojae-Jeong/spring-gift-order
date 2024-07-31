@@ -30,7 +30,7 @@ public class MemberController {
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@Valid @RequestBody RequestMemberDTO requestMemberDTO){
         Member member = memberService.signUpUser(requestMemberDTO);
-        return ResponseEntity.created(URI.create("/members" + member.getId())).body("회원가입이 정상적으로 되었습니다");
+        return ResponseEntity.created(URI.create("/members/register/" + member.getId())).body("회원가입이 정상적으로 되었습니다");
     }
 
     @Operation(summary = "로그인", description = "존재하는 사용자인지 확인 후 토큰을 발급합니다" )
